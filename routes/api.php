@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Add route Resources for Products
+//Route::Resource('/products','ProductController'); 
+
+// Add only API routes for Products
+Route::apiResource('/products','ProductController'); 
+
+
