@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Model\Product; 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,4 +28,9 @@ class Review extends Model
     {
         return 'string';
     }
+	
+	public function product()
+	{
+		return $this->belongsTo(Product::class); 
+	}
 }

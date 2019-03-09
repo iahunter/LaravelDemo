@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Model\Review; 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,4 +28,11 @@ class Product extends Model
     {
         return 'string';
     }
+	
+	
+	// Adding Review support for Products
+	public function reviews()
+	{
+		return $this->hasMany(Review::class); 
+	}
 }
