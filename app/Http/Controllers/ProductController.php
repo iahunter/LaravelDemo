@@ -16,8 +16,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-		// Return all Products via the Collection		
-		return ProductCollection::collection(Product::all());
+		// Return all Products via the Collection	
+		//return ProductCollection::collection(Product::all());
+		
+		// Return Paginated Products via the Collection
+		$products = Product::paginate(10); 
+		return ProductCollection::collection($products);
     }
 
     /**
