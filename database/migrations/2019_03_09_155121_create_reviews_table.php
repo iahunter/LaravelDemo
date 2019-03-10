@@ -19,6 +19,8 @@ class CreateReviewsTable extends Migration
 			// Testing out UUIDs
 			$table->uuid('id');
 			$table->uuid('product_id')->unsigned;
+			// Foreign key not working for some reason. 
+			//$table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 			$table->string('customer');
 			$table->text('review');
 			$table->integer('star');

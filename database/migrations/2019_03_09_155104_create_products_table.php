@@ -20,8 +20,13 @@ class CreateProductsTable extends Migration
 			$table->integer('price');
 			$table->integer('stock');
 			$table->integer('discount');
+			$table->integer('user_id')->unsigned;
+			// Foreign key not working for some reason. 
+			//$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
+		
+
     }
 
     /**
