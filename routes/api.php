@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,7 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Add only API routes for Products
 Route::apiResource('/products','ProductController'); 
 
-
+// Custom API routes for Reviews
 Route::group(['prefix' => 'products'], function(){
 	Route::apiResource('/{product}/reviews', 'ReviewController'); 
 }); 
