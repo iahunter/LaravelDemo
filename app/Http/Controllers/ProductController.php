@@ -108,7 +108,23 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+		//return $product; 
+        
+		// Change description to detail for our DB. 
+		$request['detail'] = $request->description; 
+		unset($request['description']); // Discard description since it is no longer needed. 
+		
+		// Update Product
+		$product->update($request->all()); 
+		
+		// Get the new product and return it in the response. 
+		return response([
+			'request' => $request->all(), 
+			'data'	=> new ProductResource($product), 
+			'message' => "",
+			'errors' => "",
+		//], 201); 
+		], Response::HTTP_OK);
     }
 
     /**
