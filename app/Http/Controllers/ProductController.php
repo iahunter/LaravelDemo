@@ -19,7 +19,7 @@ class ProductController extends Controller
 		// Return all Products via the Collection	
 		//return ProductCollection::collection(Product::all());
 		
-		// Return Paginated Products via the Collection
+		// Return Paginated Products via the Collection - ProductCollection is an extension of Resource, not ResourceCollection (default)
 		$products = Product::paginate(10); 
 		return ProductCollection::collection($products);
     }
