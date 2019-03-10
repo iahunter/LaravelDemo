@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Http\Resources\Product\ProductCollection; 
-use App\Model\Product; 
+
 
 /*
 |--------------------------------------------------------------------------
