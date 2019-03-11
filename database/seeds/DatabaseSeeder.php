@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
 		
 		// Use the factory to create random data
+		factory(App\User::class,5)->create();
 		factory(App\Model\Product::class,50)->create();
 		factory(App\Model\Review::class,300)->create();
     }
