@@ -14,15 +14,17 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->uuid('id');
+			
+			// Testing out UUIDs
+            $table->uuid('id')->primary(); 				// Must add primary() to id if using UUID for foreign key references
+			
 			$table->string('name');
 			$table->text('detail');
 			$table->integer('price');
 			$table->integer('stock');
 			$table->integer('discount');
-			$table->integer('user_id')->unsigned;
-			// Foreign key not working for some reason. 
-			//$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+			$table->unsignedBigInteger('user_id')->unsigned; 	// Use Big Integer for UserID in Laravel 5.8
+				$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
 		

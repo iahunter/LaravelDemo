@@ -15,12 +15,12 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             //$table->bigIncrements('id');
-			//$table->integer('product_id')->unsigned;
+			
 			// Testing out UUIDs
-			$table->uuid('id');
+			$table->uuid('id')->primary(); 				// Must add primary() to id if using UUID for foreign key references
+			
 			$table->uuid('product_id')->unsigned;
-			// Foreign key not working for some reason. 
-			//$table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+				$table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 			$table->string('customer');
 			$table->text('review');
 			$table->integer('star');
