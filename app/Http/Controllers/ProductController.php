@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ProductNotBelongsToUser; 
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\Product\ProductCollection; 
 use App\Http\Resources\Product\ProductResource; 
 use App\Model\Product;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response; 
-
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -52,6 +53,10 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+		//return Auth::id(); 
+		if(Auth::id()){
+			$user = Auth::id();
+		}
         // Create new Product
 		$product = new Product; 
 		$product->name = $request->name;
@@ -59,6 +64,7 @@ class ProductController extends Controller
 		$product->stock = $request->stock;
 		$product->price = $request->price;
 		$product->discount = $request->discount;
+		$product->user_id = $user; 
 
 		// Save to DB
 		$product->save();
@@ -108,8 +114,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-		//return $product; 
-        
+
+		//
+		// Check if product belongs to user. 
+		$this->ProductUserCheck($product); 
+        return $request; 
 		// Change description to detail for our DB. 
 		$request['detail'] = $request->description; 
 		unset($request['description']); // Discard description since it is no longer needed. 
@@ -135,6 +144,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+		// Check if product belongs to user. 
+		$this->ProductUserCheck($product); 
+		
         //return $product; 
 		$deleted = $product; 
 		$product->delete(); 
@@ -151,5 +163,13 @@ class ProductController extends Controller
 		], Response::HTTP_OK);
 		*/
 		
+    }
+	
+	public function ProductUserCheck($product)
+    {
+		// Check if product belongs to current user. 
+		if(Auth::id() !== $product->user_id){
+			throw new ProductNotBelongsToUser; 
+		}
     }
 }

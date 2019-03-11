@@ -20,11 +20,16 @@ class ProductCollection extends Resource
         //return parent::toArray($request);
 		
 		// Return a custom return for each object in the collection. We do this by extending resource
+		
+		// Get the Owner ID for the product for display. 
+		$user = \App\User::find($this->user_id); 
+		
 		return [
 			'name' => $this->name,
             'totalPrice' => round(( 1 - ($this->discount/100)) * $this->price,2),
             'rating' => $this->reviews->count() > 0 ? round($this->reviews->sum('star')/$this->reviews->count(),2) : 'No rating yet',
             'discount' => $this->discount,
+			'user'		=> $user->name, 
             'href' => [
                 'link' => route('products.show',$this->id)
             ]

@@ -19,8 +19,11 @@ class ProductResource extends JsonResource
 		$this->totalPrice = $this->price * ((100 - $this->discount) / 100); 
 		$this->rating = $this->reviews->count() > 0 ? round($this->reviews->sum('star')/$this->reviews->count(),2) : 'No rating yet'; 
 		
+		// Get the Owner ID for the product for display. 
+		$user = \App\User::find($this->user_id); 
+		
 		return [
-			'id'			=>$this->id,
+			'id'			=> $this->id,
 			'name' 			=> $this->name,
 			'description' 	=> $this->detail, 
 			'price' 		=> $this->price,
@@ -28,6 +31,7 @@ class ProductResource extends JsonResource
 			'discount' 		=> $this->discount,
 			'totalPrice'	=> $this->totalPrice,
 			'rating'		=> $this->rating,
+			'user'			=> $user->name, 
 			'href' => [
                 'link' => route('reviews.index',$this->id)
             ]
