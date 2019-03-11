@@ -17,9 +17,9 @@ class CreateReviewsTable extends Migration
             //$table->bigIncrements('id');
 			
 			// Testing out UUIDs
-			$table->uuid('id')->primary(); 				// Must add primary() to id if using UUID for foreign key references
+			$table->uuid('id')->primary()->index(); 				// Must add primary() to id if using UUID for foreign key references
 			
-			$table->uuid('product_id')->unsigned;
+			$table->uuid('product_id')->index();
 				$table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 			$table->string('customer');
 			$table->text('review');
